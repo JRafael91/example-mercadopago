@@ -1,0 +1,66 @@
+<form [formGroup]="payForm" (ngSubmit)="payWithMercadoPago()" novalidate>
+  <h3>{{amount | currency}}</h3>
+  <input type="hidden" id="deviceId">
+  <div>
+    <div size="12">
+      <div class="line-input">
+        <label position="floating">Nombre del titular</label>
+        <input type="text" formControlName="cardName" placeholder="Nombre del titular"/>
+      </div>
+      <div *ngIf="payForm.get('cardName')?.errors && payForm.get('cardName')?.touched" color="danger" class="form-error">
+        <p *ngIf="payForm.get('cardName')?.hasError('required')" style="color: red; font-size: small;">Campo requerido</p>
+      </div>
+    </div>
+    <div size="12">
+      <div class="line-input">
+        <label position="floating">Número tarjeta</label>
+        <input type="text" formControlName="cardNumber" placeholder="Número de tarjeta" oncopy="false" oncut="false" autocomplete="false"/>
+      </div>
+      <div *ngIf="payForm.get('cardNumber')?.errors && payForm.get('cardNumber')?.touched" color="danger" class="form-error">
+        <p *ngIf="payForm.get('cardNumber')?.hasError('required')" style="color: red; font-size: small;">Número de tarjeta requerido</p>
+        <p *ngIf="payForm.get('cardNumber')?.hasError('minlength')" style="color: red; font-size: small;">16 dígitos requeridos</p>
+        <p *ngIf="payForm.get('cardNumber')?.hasError('maxlength')" style="color: red; font-size: small;">16 dígitos requeridos</p>
+        <p *ngIf="payForm.get('cardNumber')?.hasError('pattern')" style="color: red; font-size: small;">Campo numérico</p>
+      </div>
+    </div>
+    <div size="4">
+      <div class="line-input" style="margin-top: 15px;">
+        <label position="floating">MM</label>
+        <input type="text" formControlName="expMonth" placeholder="08"/>
+      </div>
+      <div *ngIf="payForm.get('expMonth')?.errors && payForm.get('expMonth')?.touched" color="danger" class="form-error">
+        <p *ngIf="payForm.get('expMonth')?.hasError('required')" style="color: red; font-size: small;">Campo requerido</p>
+        <p *ngIf="payForm.get('expMonth')?.hasError('minlength')" style="color: red; font-size: small;">2 dígitos</p>
+        <p *ngIf="payForm.get('expMonth')?.hasError('maxlength')" style="color: red; font-size: small;">2 dígitos</p>
+        <p *ngIf="payForm.get('expMonth')?.hasError('pattern')" style="color: red; font-size: small;">Campo numérico</p>
+      </div>
+    </div>
+    <div size="4">
+      <div class="line-input" style="margin-top: 15px;">
+        <label position="floating">AA</label>
+        <input type="text" formControlName="expYear" placeholder="22" required minlength="2" maxlength="2" pattern="^[0-9]*$"/>
+      </div>
+      <div *ngIf="payForm.get('expYear')?.errors && payForm.get('expYear')?.touched" color="danger" class="form-error">
+        <p *ngIf="payForm.get('expYear')?.hasError('required')" style="color: red; font-size: small;">Campo requerido</p>
+        <p *ngIf="payForm.get('expYear')?.hasError('minlength')" style="color: red; font-size: small;">2 dígitos</p>
+        <p *ngIf="payForm.get('expYear')?.hasError('maxlength')" style="color: red; font-size: small;">2 dígitos</p>
+        <p *ngIf="payForm.get('expYear')?.hasError('pattern')" style="color: red; font-size: small;">Campo numérico</p>
+      </div>
+    </div>
+    <div size="4">
+      <div class="line-input" style="margin-top: 15px;">
+        <label position="floating">CVV</label>
+        <input type="text" formControlName="securityCode" placeholder="123" required minlength="3" maxlength="3" pattern="^[0-9]*$"/>
+      </div>
+      <div *ngIf="payForm.get('securityCode')?.errors && payForm.get('securityCode')?.touched" color="danger" class="form-error">
+        <p *ngIf="payForm.get('securityCode')?.hasError('required')" style="color: red; font-size: small;">Campo requerido</p>
+        <p *ngIf="payForm.get('securityCode')?.hasError('minlength')" style="color: red; font-size: small;">3 dígitos</p>
+        <p *ngIf="payForm.get('securityCode')?.hasError('maxlength')" style="color: red; font-size: small;">3 dígitos</p>
+        <p *ngIf="payForm.get('securityCode')?.hasError('pattern')" style="color: red; font-size: small;">Campo numérico</p>
+      </div>
+    </div>
+    <div size="12">
+      <button expand="full" type="submit" color="purple">PROCESAR PAGO</button>
+    </div>
+  </div>
+</form>
